@@ -8,30 +8,21 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
-    padding-top:70px;
 }
 
 /* NAVBAR */
 nav {
     background-color: purple;
-    width: 100%;
-    padding: 20px 0;
+    padding: 15px;
     text-align: center;
-    position:fixed;
-    z-index:10000;
-    top:0;
-    left:0;
-    right:0;
-    display:block;
 }
 
 nav a {
     color: white;
-    margin: 0 20px;
+    margin: 15px;
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
-    display:inline-block;
 }
 
 nav a:hover {
@@ -40,11 +31,10 @@ nav a:hover {
 
 /* HERO / HEADER */
 .hero {
-    background: linear-gradient(to right, purple, darkviolet);
+    background: linear-gradient(to right, purple, violet);
     color: white;
     text-align: center;
-    padding: 60px 20px;
-    width:100%;
+    padding: 80px 20px;
 }
 
 .hero h1 {
@@ -64,7 +54,7 @@ nav a:hover {
 /* WHY CHOOSE US */
 .check-list {
     max-width: 500px;
-    margin: 0 auto;
+    margin: auto;
     text-align: left;
 }
 
@@ -74,19 +64,9 @@ nav a:hover {
 }
 
 /* VIDEO */
-.video-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 40px 0;
-}
-
-iframe {
+video {
     border-radius: 15px;
     box-shadow: 0px 4px 10px gray;
-    max-width: 90%;
 }
 
 /* LOGIN FORM */
@@ -105,11 +85,12 @@ iframe {
 }
 
 .login-box input {
-    width: 90%;
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
     border-radius: 10px;
     border: 1px solid gray;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
 }
 
 .login-box button {
@@ -120,7 +101,6 @@ iframe {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 16px;
 }
 
 .login-box button:hover {
@@ -143,7 +123,7 @@ footer {
     <a href="#">Home</a>
     <a href="#">Places</a>
     <a href="#">Hotels</a>
-    <a href="#">Feast</a>
+    <a href="#">Contact</a>
 </nav>
 
 <div class="hero">
@@ -170,53 +150,67 @@ footer {
     </div>
 </div>
 
-<div class="video-container">
+<div class="section">
     <h2>Watch Tamilnadu</h2>
-    <iframe width="800" height="450" src="https://www.youtube.com/embed/vFQyLgCiWE8" title="Explore Tamil Nadu" frameborder="0" allowfullscreen></iframe>
+    <video width="400" controls>
+        <source src="https://youtube.com/shorts/zJF9jsx8h_g?si=iW5A2gwnHJoTp_l2" type="video/mp4">
+        Your browser does not support video.
+    </video>
 </div>
 
 <div class="section">
     <div class="login-box">
         <h2>Login / Register</h2>
-        <form onsubmit="return validateLogin()">
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" id="userEmail" placeholder="Email" required>
-            <input type="tel" placeholder="Phone Number">
-            <input type="password" id="userPass" placeholder="Password" required>
-            <button type="submit">Submit</button>
-        </form>
+        <input type="text" id="userName" placeholder="Full Name">
+        <input type="email" id="userEmail" placeholder="Email">
+        <input type="tel" id="userPhone" placeholder="Phone Number">
+        <input type="password" id="userPass" placeholder="Password">
+        <button onclick="validateForm()">Submit</button>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 Tamilnadu Tourism | All Rights Reserved</p>
+    <p>© 2026 Tamilnadu Tourism | All Rights Reserved</p>
 </footer>
 
 <script>
-    function validateLogin() {
-        // 1. Get the values from the email and password boxes
-        var email = document.getElementById("userEmail").value;
-        var pass = document.getElementById("userPass").value;
+function validateForm() {
+    // Get values from the input fields
+    const name = document.getElementById('userName').value;
+    const email = document.getElementById('userEmail').value;
+    const phone = document.getElementById('userPhone').value;
+    const pass = document.getElementById('userPass').value;
 
-        // 2. Set the "Correct" answers
-        var correctEmail = "admin@tourism.com";
-        var correctPass = "Tamil123";
-
-        // 3. Logic: Check Email first, then Password
-        if (email !== correctEmail) {
-            alert("❌ Incorrect Email! Please check your email address.");
-            return false; // Stops the page from refreshing
-        } 
-        
-        if (pass !== correctPass) {
-            alert("❌ Incorrect Password! Access Denied.");
-            return false; // Stops the page from refreshing
-        }
-
-        // If everything is correct
-        alert("✅ Welcome to Tamilnadu Tourism! Login Successful.");
-        return true; 
+    // Check if Name is empty
+    if (name === "") {
+        alert("Please enter your Full Name.");
+        return;
     }
+
+    // Check if Email is empty or valid
+    if (email === "") {
+        alert("Please enter your Email address.");
+        return;
+    } else if (!email.includes("@")) {
+        alert("Please enter a valid Email address.");
+        return;
+    }
+
+    // Check if Phone is empty
+    if (phone === "") {
+        alert("Please enter your Phone Number.");
+        return;
+    }
+
+    // Check if Password is empty
+    if (pass === "") {
+        alert("Please enter a Password.");
+        return;
+    }
+
+    // If everything is fine
+    alert("Success! Welcome to Tamilnadu Tourism, " + name + ".");
+}
 </script>
 
 </body>
